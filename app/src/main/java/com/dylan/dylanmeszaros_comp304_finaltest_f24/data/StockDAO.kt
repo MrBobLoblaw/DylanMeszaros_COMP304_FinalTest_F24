@@ -12,6 +12,9 @@ interface StockDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(stockInfo: StockInfo)
 
+    @Insert()
+    fun insertAll(stocks: MutableList<StockInfo>)
+
     @Delete
     fun delete(stockInfo: StockInfo)
 

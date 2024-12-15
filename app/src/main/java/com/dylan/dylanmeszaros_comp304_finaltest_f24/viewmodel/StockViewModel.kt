@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dylan.dylanmeszaros_comp304_finaltest_f24.data.StockInfo
 import com.dylan.dylanmeszaros_comp304_finaltest_f24.data.StockRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -22,12 +24,18 @@ class StockViewModel (
     val stocks: StateFlow<List<StockInfo>> = _stocks;
 
     init {
+        _stocks.value = stockRepository.getStocks();
         //_stocks.addAll(stockRepository.getStocks());
+        //updateStocks();
+
+        /*CoroutineScope(Dispatchers.IO).launch {
+            stockRepository.InitializeRoom()
+        }*/
+
         //fetchStocks();
-        updateStocks();
     }
 
-    private fun fetchStocks(){
+    private fun fetchStocks(){ // Room
         viewModelScope.launch {
             try {
                 _stocks.value = stockRepository.getStocks() // Suspended function
@@ -42,7 +50,10 @@ class StockViewModel (
         //updateStocks();
 
         if (successful){
+            // Room
             //viewModelScope.launch { _stocks.add(stock); }
+
+            // No Room
             viewModelScope.launch { _stocks.emit(_stocks.value + stock); }
         }
     }
@@ -51,21 +62,30 @@ class StockViewModel (
         //updateStocks();
 
         if (successful){
+            // Room
             //viewModelScope.launch { _stocks.add(stock); }
+
+            // No Room
             viewModelScope.launch { _stocks.emit(_stocks.value - stock); }
         }
     }
     fun queryAll(): MutableList<StockInfo> {
+        // Room
         //updateStocks();
+
+        // No Room
         return stockRepository.getStocks();
     }
     fun queryBySymbol(symbol: String): StockInfo?{
-        //return stockRepository.getStock(symbol);
+        // Room
         return _stocks.value.find { it.stockSymbol == symbol }
+
+        // No Room
+        //return stockRepository.getStock(symbol);
     }
 
     private fun updateStocks(){
-        _stocks.value = stockRepository.getStocks();
+        // Room
         /*viewModelScope.launch {
             try{
                 _stocks.value = stockRepository.getStocks();
@@ -73,5 +93,8 @@ class StockViewModel (
                 Log.e("StockViewModel", "${e}");
             }
         }*/
+
+        // No Room
+        _stocks.value = stockRepository.getStocks();
     }
 }
