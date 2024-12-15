@@ -1,4 +1,11 @@
-package com.dylan.dylanmeszaros_comp304_finaltest_f24
+/*
+
+    Student Name: Dylan Meszaros
+    Student Number: 301248995
+
+*/
+
+package com.dylan.meszaros
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -38,12 +45,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.room.Room
-import com.dylan.dylanmeszaros_comp304_finaltest_f24.data.AppDatabase
-import com.dylan.dylanmeszaros_comp304_finaltest_f24.data.StockInfo
-import com.dylan.dylanmeszaros_comp304_finaltest_f24.di.appModules
-import com.dylan.dylanmeszaros_comp304_finaltest_f24.ui.theme.CoreTheme
-import com.dylan.dylanmeszaros_comp304_finaltest_f24.viewmodel.StockViewModel
+import com.dylan.dylanmeszaros_comp304_finaltest_f24.R
+import com.dylan.meszaros.data.StockInfo
+import com.dylan.meszaros.di.appModules
+import com.dylan.meszaros.ui.theme.CoreTheme
+import com.dylan.meszaros.viewmodel.StockViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.compose.koinViewModel
@@ -52,7 +58,14 @@ import org.koin.core.context.startKoin
 
 var onStartup = false;
 
-class MainActivity : AppCompatActivity() {
+class DylanActivity : AppCompatActivity() {
+
+    /*
+
+        Student Name: Dylan Meszaros
+        Student Number: 301248995
+
+    */
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                         });
                         //Spacer(modifier = Modifier.padding(10.dp));
                         StockListerScreen(onDisplay = { stockInfo ->
-                            startActivity(Intent(this@MainActivity, DisplayActivity::class.java).apply {
+                            startActivity(Intent(this@DylanActivity, DisplayActivity::class.java).apply {
                                 putExtra("stockSymbol", stockInfo.stockSymbol)
                             });
                         }, this);
@@ -112,14 +125,14 @@ class DisplayActivity : AppCompatActivity() {
             val stockViewModel: StockViewModel = koinViewModel();
             val stockInfo = intent.getStringExtra("stockSymbol")?.let { stockViewModel.queryBySymbol(it) };
             if (stockInfo == null) {  // Go back
-                startActivity(Intent(this@DisplayActivity, MainActivity::class.java))
+                startActivity(Intent(this@DisplayActivity, DylanActivity::class.java))
             }
             else{
                 CoreTheme {
                     Scaffold(
                         content = {
                             StockDisplayScreen(onBack = {
-                                startActivity(Intent(this@DisplayActivity, MainActivity::class.java));
+                                startActivity(Intent(this@DisplayActivity, DylanActivity::class.java));
                             }, stockInfo)
                         }
                     )

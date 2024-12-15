@@ -1,4 +1,4 @@
-package com.dylan.dylanmeszaros_comp304_finaltest_f24.data
+package com.dylan.meszaros.data
 
 interface StockRepository {
     fun InitializeRoom()

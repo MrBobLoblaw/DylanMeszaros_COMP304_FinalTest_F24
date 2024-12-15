@@ -1,17 +1,13 @@
-package com.dylan.dylanmeszaros_comp304_finaltest_f24.viewmodel
+package com.dylan.meszaros.viewmodel
 
 import android.util.Log
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dylan.dylanmeszaros_comp304_finaltest_f24.data.StockInfo
-import com.dylan.dylanmeszaros_comp304_finaltest_f24.data.StockRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.dylan.meszaros.data.StockInfo
+import com.dylan.meszaros.data.StockRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class StockViewModel (
     private var stockRepository: StockRepository

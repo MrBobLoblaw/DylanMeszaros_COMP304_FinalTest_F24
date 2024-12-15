@@ -1,4 +1,4 @@
-package com.dylan.dylanmeszaros_comp304_finaltest_f24.ui.theme
+package com.dylan.meszaros.ui.theme
 
 import android.app.Activity
 import android.os.Build

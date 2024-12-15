@@ -1,10 +1,9 @@
-package com.dylan.dylanmeszaros_comp304_finaltest_f24.data
+package com.dylan.meszaros.data
 
 import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 
 class StockRepositoryImpl(
