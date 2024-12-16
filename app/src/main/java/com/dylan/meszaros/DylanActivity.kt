@@ -81,9 +81,6 @@ class DylanActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main);
 
-        //val database = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "app-database").build();
-        //val stockDao = database.stockDao();
-
         setContent {
             val stockViewModel: StockViewModel = koinViewModel();
 
@@ -91,15 +88,13 @@ class DylanActivity : AppCompatActivity() {
                 Scaffold(
                     content =  {
                         StockInsertScreen(onInsert = { stockInfo ->
-                            //stockDao.insert(stockInfo);
                             stockViewModel.insert(stockInfo);
                         });
-                        //Spacer(modifier = Modifier.padding(10.dp));
                         StockListerScreen(onDisplay = { stockInfo ->
                             startActivity(Intent(this@DylanActivity, DisplayActivity::class.java).apply {
                                 putExtra("stockSymbol", stockInfo.stockSymbol)
                             });
-                        }, this);
+                        });
                     }
                 )
             }
@@ -108,10 +103,6 @@ class DylanActivity : AppCompatActivity() {
 }
 
 class DisplayActivity : AppCompatActivity() {
-
-    //val database = Room.databaseBuilder(applicationContext, RoomDatabase::class.java, "stock-database") .build();
-    //val stockDao = database.stockDao();
-    //val stocks: List<StockInfo> = stockDao.getAll();
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -259,12 +250,8 @@ fun CustomTextField(title: String, value: TextFieldValue, onValueChange: (TextFi
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun StockListerScreen(onDisplay: (StockInfo) -> Unit, context: Context){
-    //val database = Room.databaseBuilder(context, RoomDatabase::class.java, "stock-database").build();
-    //val stockDao = database.stockDao();
-    //val stocks = stockDao.getAll();
+fun StockListerScreen(onDisplay: (StockInfo) -> Unit){
     val stockViewModel: StockViewModel = koinViewModel();
-    //val stocks = stockViewModel.stocks;
     val stocks by stockViewModel.stocks.collectAsState();
 
     var selectedStock by remember { mutableStateOf<StockInfo?>(null) };
